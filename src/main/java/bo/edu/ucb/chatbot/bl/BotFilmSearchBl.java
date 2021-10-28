@@ -45,7 +45,7 @@ public class BotFilmSearchBl {
         }
         List<String> items = Arrays.asList(aux.split(","));
 
-      if (count ==4 && empiezaT==true){
+     if (count ==4 && empiezaT==true){
             filmList =  filmSearchBl.findByTitleAndActor(items.get(1),items.get(3),items.get(4));
         }else{
             if(count == 1 && empiezaT==true){
@@ -55,8 +55,13 @@ public class BotFilmSearchBl {
                 if(count==2 && empiezaT==false){
                     filmList =  filmSearchBl.findByActor(items.get(1),items.get(2));
                 }else{
-                    result.add("Formato incorrecto " + message);
-                    return result;
+                    if(count==4 && empiezaT==false){
+                        filmList = filmSearchBl.findByTitleAndActor(items.get(4),items.get(1),items.get(2));
+                    }else{
+                        result.add("Formato incorrecto " + message);
+                        return result;
+                    }
+
                 }
             }
         }
