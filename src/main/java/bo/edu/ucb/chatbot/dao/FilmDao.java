@@ -178,10 +178,10 @@ public class FilmDao {
         List<String> result = new ArrayList<>();
         //insert en rental para cada pelicula (inventory_id varia)
         //String query = "INSERT INTO RENTAL VALUES (null,rental_date,inventory_id,customer_id,return_date,staff_id,last_update o null)";
-        String query = "INSERT INTO RENTAL VALUES (null,(?),(?),(?),(?),(?),(?))";
+        String query = "INSERT INTO rental VALUES (null,(?),(?),(?),(?),(?),(?))";
         //luego recuperar los rental_id de todos los inserts y aniadir un registro a payment para cada uno
         //String query2 = "INSERT INTO PAYMENT VALUES (null,customer_id,staff_id,rental_id,amount,payment_date,last_update o null),";
-        String query2 = "INSERT INTO PAYMENT VALUES (null,(?),(?),LAST_INSERT_ID(),(?),(?),(?))";
+        String query2 = "INSERT INTO payment VALUES (null,(?),(?),LAST_INSERT_ID(),(?),(?),(?))";
         try (
                 Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt =  conn.prepareStatement(query);
@@ -197,26 +197,28 @@ public class FilmDao {
                 pstmt.setInt(5, 2);
                 pstmt2.setInt(2, 2);
             }
-            pstmt.setString(1, "%'"+obj.getRentalDate().toUpperCase()+ "'%");
+            pstmt.setString(1, obj.getRentalDate().toUpperCase());
             pstmt.setInt(3, obj.getCustomerId());
-            pstmt.setString(4, "%'"+obj.getReturnDate().toUpperCase()+ "'%");
-            pstmt.setString(6, "%'"+obj.getLastUpdate().toUpperCase()+ "'%");
+            pstmt.setString(4, obj.getReturnDate().toUpperCase());
+            pstmt.setString(6, obj.getLastUpdate().toUpperCase());
 
             pstmt2.setInt(1, obj.getCustomerId());
             pstmt2.setFloat(3, obj.getAmount());
-            pstmt2.setString(4, "%'"+obj.getPaymentDate().toUpperCase()+ "'%");
-            pstmt2.setString(5, "%'"+obj.getLastUpdate().toUpperCase()+ "'%");
+            pstmt2.setString(4, obj.getPaymentDate().toUpperCase());
+            pstmt2.setString(5, obj.getLastUpdate().toUpperCase());
             ResultSet rs = null;
             for(int i=0; i<obj.getFilms().size(); i++){
                 pstmt.setInt(2, obj.getFilms().get(i));
-                rs = pstmt.executeQuery();
-                while(rs.next()) {
-                    result.add(rs.getString("ok o fail para cada query"));
-                    rs = pstmt2.executeQuery();
-                    while(rs.next()) {
+                pstmt.executeUpdate();
+                //rs=anterior linea
+                /*while(rs.next()) {
+                    result.add(rs.getString("ok o fail para cada query"));*/
+                    pstmt2.executeUpdate();
+                    //rs=anterior linea
+                    /*while(rs.next()) {
                         result.add(rs.getString("ok o fail para cada query"));
                     }
-                }
+                }*/
             }
             rs.close();
         } catch (SQLException ex) {
