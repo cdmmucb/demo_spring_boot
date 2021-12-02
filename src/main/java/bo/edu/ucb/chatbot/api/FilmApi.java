@@ -3,13 +3,14 @@ package bo.edu.ucb.chatbot.api;
 import bo.edu.ucb.chatbot.bl.FilmSearchBl;
 import bo.edu.ucb.chatbot.dto.Film;
 import bo.edu.ucb.chatbot.dto.Rental;
+import bo.edu.ucb.chatbot.dto.User;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController()
 public class FilmApi {
@@ -40,11 +41,10 @@ public class FilmApi {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //HAY QUE MANDAR DIRECCION DE ENVIO???
+    //HAY QUE MANDAR DIRECCION DE ENVIO
     //HAY QUE MANDAR UN CORREO AL CLIENTE CON EL RESUMEN
-
     @PostMapping(value = "/rentals",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> addRental(@RequestBody Rental rental) {
+    public JSONObject addRental(@RequestBody Rental rental) {
         System.out.println("Invocando al metodo POST RENTAL!!!!!!!!!!!");
         return filmSearchBl.addRental(rental);
     }
@@ -88,7 +88,9 @@ public class FilmApi {
         return filmSearchBl.getMoviesFiltered(country, type, value);
     }
 
-    //crear customer nombres, apellidos, email, direccion (direccion1,direccion2,distrito)
-    //llenar la tabla customer y la tabla address
-
+    @GetMapping(value = "/users/{mail}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getUser(@PathVariable(name = "mail") String mail) {
+        System.out.println("Invocando al metodo GET USER!!!!!!!!!!!");
+        return filmSearchBl.getUser(mail);
+    }
 }

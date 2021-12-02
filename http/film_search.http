@@ -5,12 +5,23 @@ Accept: application/json
 GET http://localhost:8080/film/maude
 Accept: application/json
 
+
+
+
+###
+GET http://localhost:8080/rentals/canada
+Accept: application/json
+
 ###
 GET http://localhost:8080/rentals/australia
 Accept: application/json
 
 ###
-GET http://localhost:8080/rentals/canada/titulo/alice
+GET http://localhost:8080/rentals/canada/titulo/maude
+Accept: application/json
+
+###
+GET http://localhost:8080/rentals/canada/actor/nick
 Accept: application/json
 
 ###
@@ -20,16 +31,16 @@ Content-Type: application/json
 {
     "rentalDate":"2021-11-23 12:00:00",
     "customerId":7,
-    "returnDate":"2021-11-23 12:00:00",
     "country":"australia",
-    "lastUpdate":"2021-11-23 12:00:00",
     "paymentDate":"2021-11-23 12:00:00",
     "amount":2.2,
-    "films":[
-        1,
-        2,
-        3,
-        4
-    ]
+    "film1":5,
+    "film2":6,
+    "film3":7,
+    "film4":8
 }
 //staff_id int (1 if Canada; 2 if Australia)
+
+###
+GET http://localhost:8080/users/ROBIN.HAYES@sakilacustomer.org
+Accept: application/json

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Film {
+    Integer inventoryId;
+    Boolean disponible;
     private Integer filmId;
     private String title;
     private String description;
@@ -42,6 +44,22 @@ public class Film {
                 ", description='" + description + '\'' +
                 ", lengthLabel='" + lengthLabel + '\'' +
                 '}';
+    }
+
+    public Integer getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(Integer inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
     public Integer getFilmId() {
