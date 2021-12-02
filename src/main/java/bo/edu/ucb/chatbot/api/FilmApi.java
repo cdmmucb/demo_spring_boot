@@ -4,12 +4,10 @@ import bo.edu.ucb.chatbot.bl.FilmSearchBl;
 import bo.edu.ucb.chatbot.dto.Film;
 import bo.edu.ucb.chatbot.dto.Rental;
 import bo.edu.ucb.chatbot.dto.User;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController()
@@ -22,25 +20,6 @@ public class FilmApi {
         this.filmSearchBl = filmSearchBl;
     }
 
-    @GetMapping(value = "/film/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Film> findBytTitle(@PathVariable(name = "title") String title) {
-        System.out.println("Invocando al metodo GET!!!!!!!!!!!");
-        return filmSearchBl.findByTitle(title);
-    }
-
-    @GetMapping(value = "/film/{actor}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Film> findByActor(@PathVariable(name = "actor") String actor, @PathVariable(name = "second") String second) {
-        System.out.println("Invocando al metodo GET!!!!!!!!!!!");
-        return filmSearchBl.findByActor(actor,second);
-    }
-
-    @GetMapping(value = "/film/{title}/{actor}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Film> findByTitleAndActor(@PathVariable(name = "title") String title, @PathVariable(name = "actor") String actor, @PathVariable(name = "second") String second) {
-        System.out.println("Invocando al metodo GET!!!!!!!!!!!");
-        return filmSearchBl.findByTitleAndActor(title,actor,second);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //HAY QUE MANDAR DIRECCION DE ENVIO
     //HAY QUE MANDAR UN CORREO AL CLIENTE CON EL RESUMEN
     @PostMapping(value = "/rentals",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,4 +72,46 @@ public class FilmApi {
         System.out.println("Invocando al metodo GET USER!!!!!!!!!!!");
         return filmSearchBl.getUser(mail);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+@GetMapping(value = "/film/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+public List<Film> findBytTitle(@PathVariable(name = "title") String title) {
+    System.out.println("Invocando al metodo GET!!!!!!!!!!!");
+    return filmSearchBl.findByTitle(title);
+}
+
+@GetMapping(value = "/film/{actor}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
+public List<Film> findByActor(@PathVariable(name = "actor") String actor, @PathVariable(name = "second") String second) {
+    System.out.println("Invocando al metodo GET!!!!!!!!!!!");
+    return filmSearchBl.findByActor(actor,second);
+}
+
+@GetMapping(value = "/film/{title}/{actor}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
+public List<Film> findByTitleAndActor(@PathVariable(name = "title") String title, @PathVariable(name = "actor") String actor, @PathVariable(name = "second") String second) {
+    System.out.println("Invocando al metodo GET!!!!!!!!!!!");
+    return filmSearchBl.findByTitleAndActor(title,actor,second);
+}
 }
